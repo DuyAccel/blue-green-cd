@@ -1,0 +1,21 @@
+---
+- name: Auto deploy blue green
+  hosts: localhost
+  source:
+    - name: listen alerts
+      ansible.eda.alertmanager:
+        host: 0.0.0.0
+        port: 5000
+  rules:
+    - name: Rollout Green
+      condition: event.alert.labels.action == "rollout" and event.alert.status == "firing"
+      action: 
+        run_playbook:
+          name: rollout-green.yaml
+
+    - name: Rollback Blue
+      condition: event.alert.labels.action == "rollout" and event.alert.status == "firing"
+      action:
+        run_playbook:
+          name: rollback-blue.yaml
+

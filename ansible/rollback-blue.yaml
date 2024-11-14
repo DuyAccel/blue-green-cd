@@ -1,0 +1,17 @@
+---
+- name: Rollout
+  hosts: localhost
+  vars_files:
+    - vars.yaml
+
+  tasks:
+    - name: Announcement
+      ansible.builtin.shell: Echo "Start to rollout" > rollout.log
+      args:
+        chdir: {{ work-dir }}
+
+    - name: Edit route
+      ansible.builtin.shell: kubectl apply -f {{ route-dir }} route.yaml >> rollout.log
+
+    - name: Delete blue deployment 
+      ansible.builtin.shell: kustomize build {{ blue-dir }} | kubectl delete -f - >> rollout.log

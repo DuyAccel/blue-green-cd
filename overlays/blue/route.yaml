@@ -1,0 +1,18 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: demo-route
+  namespace: duyaccel-dev
+  labels:
+    app: demo
+  annotations:
+    haproxy.router.openshift.io/balance: roundrobin
+    haproxy.router.openshift.io/disable_cookies: "true"
+spec:
+  host: demo.apps.sandbox-m3.1530.p1.openshiftapps.com
+  port:
+    targetPort: main
+  to:
+    kind: Service
+    name: demo-svc
+    weight: 80

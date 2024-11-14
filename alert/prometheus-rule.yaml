@@ -1,0 +1,70 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: demo-rules
+  namespace: duyaccel-dev
+  labels:
+    app: demo
+    release: prometheus
+spec:
+  groups:
+    - name: Blue/Green monitoring
+      rules:
+        - alert: ContainersUsingTooMuchCPU
+          for: 5s
+          expr: sum(container_cpu_usage_seconds_total{pod=~"demo-green.*"}) > 500
+          labels:
+            severity: critical
+            namespace: duyaccel-dev
+            app: demo
+          annotations:
+            action: rollback
+            summary: Canceling GREEN deployment.
+            message: |-
+              Containers is using too much CPU resource. 
+              This behavior is not desire-statge and may lead to problems.
+              Rollback event will be trigger to cancel the GREEN deployment.
+
+        - alert: ContainersUsingTooMuchMemory
+          for: 5s
+          #expr: sum(container_memory_working_set_bytes{pod=~"demo-green.*"})/(2^20) > 200
+          expr: sum(container_memory_working_set_bytes{pod=~"demo-green.*"})/(2^10) > 200
+          labels:
+            severity: critical
+            namespace: duyaccel-dev
+            app: demo
+          annotations:
+            action: rollback
+            summary: Canceling GREEN deployment.
+            message: |-
+              Containers is using too much Memory resource. 
+              This behavior is not desire-statge and may lead to problems.
+              Rollback event will be trigger to cancel the GREEN deployment.
+
+        - alert: HttpResponseFailed
+          for: 5s
+          expr: sum(haproxy_backend_http_responses_total{code!="2xx",proxy=~".*demo-svc.*"}) > 200
+          labels:
+            severity: critical
+            namespace: duyaccel-dev 
+            app: demo 
+          annotations:
+            action: rollback
+            summary: Canceling GREEN deployment.
+            message: |-
+              Spotted too many failure respone in a short term
+              This behavior is not desire-statge and may lead to problems.
+              Rollback event will be trigger to cancel the GREEN deployment.
+
+        - alert: StableDeployment
+          for: 20s
+          expr: sum(ALERTS{app='demo', alertstate='firing'}) < 1
+          labels:
+            severity: critical
+            namespace: duyaccel-dev
+          annotations:
+            action: rollout
+            summary: Routing traffic to GREEN deployment.
+            message: |-
+              The system was stable for a long time. This is what we desired.              
+              Routing traffic event will be trigger to rollout new version.

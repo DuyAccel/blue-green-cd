@@ -1,0 +1,12 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: demo-route
+spec:
+  host: demo.apps.sandbox-m3.1530.p1.openshiftapps.com
+  port:
+    targetPort: main
+  to:
+    kind: Service
+    name: demo-svc
+

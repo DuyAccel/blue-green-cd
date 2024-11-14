@@ -1,0 +1,27 @@
+# https://kubernetes.io/docs/concepts/services-networking/ingress/
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: demo-ingress
+  namespace: default
+spec:
+  rules:
+  - host: k8s.lab
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: demo-svc
+            port: 
+              name: main
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: green-demo-svc
+            port:
+              name: main
+---
+

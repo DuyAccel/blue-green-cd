@@ -1,0 +1,20 @@
+########################################
+#                                      #
+#            STABLE VERSION            #
+#                                      #
+########################################
+
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: duyaccel-dev
+resources:
+  - ../../../base
+configMapGenerator:
+  - name: index
+    files:
+    - index.html
+
+namePrefix: green-
+
+
