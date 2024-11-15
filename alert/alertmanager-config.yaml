@@ -1,4 +1,3 @@
-
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: AlertmanagerConfig
 metadata:
@@ -7,10 +6,16 @@ metadata:
 
 spec:
   route:
-    receiver: 'ansible.eda'
+    receiver: 'webhook'
     groupBy: [namespace, app]
+    groupInterval: 5m
+    repeatInterval: 10m
 
   receivers:
-    - name: test-webhook
+    - name: webhook
       webhookConfigs:
-      - url: http://localhost:5000
+        - url: https://webhook.site/ff68ee9f-c5c4-4fa6-8436-7f7257c68390
+          sendResolved: false
+        - url: http://el-alert-listener.duyaccel-dev.svc.cluster.local:8080
+          sendResolved: false
+---

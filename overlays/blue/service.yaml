@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Service 
+metadata:
+  name: demo-svc
+spec:
+  selector:
+    ver: blue

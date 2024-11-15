@@ -12,11 +12,12 @@ spec:
       rules:
         - alert: ContainersUsingTooMuchCPU
           for: 5s
-          expr: sum(container_cpu_usage_seconds_total{pod=~"demo-green.*"}) > 500
+          expr: avg(container_cpu_usage_seconds_total{pod=~"green-demo.*"}) > 0.07
           labels:
             severity: critical
             namespace: duyaccel-dev
             app: demo
+            action: rollback
           annotations:
             action: rollback
             summary: Canceling GREEN deployment.
@@ -28,11 +29,12 @@ spec:
         - alert: ContainersUsingTooMuchMemory
           for: 5s
           #expr: sum(container_memory_working_set_bytes{pod=~"demo-green.*"})/(2^20) > 200
-          expr: sum(container_memory_working_set_bytes{pod=~"demo-green.*"})/(2^10) > 200
+          expr: avg(container_memory_working_set_bytes{pod=~"green-demo.*"})/(2^20) > 10
           labels:
             severity: critical
             namespace: duyaccel-dev
             app: demo
+            action: rollback
           annotations:
             action: rollback
             summary: Canceling GREEN deployment.
@@ -43,11 +45,12 @@ spec:
 
         - alert: HttpResponseFailed
           for: 5s
-          expr: sum(haproxy_backend_http_responses_total{code!="2xx",proxy=~".*demo-svc.*"}) > 200
+          expr: sum(rate(haproxy_backend_http_responses_total{proxy=~'.*green-demo-svc.*', code!='2xx'}[1m])) > 1
           labels:
             severity: critical
             namespace: duyaccel-dev 
             app: demo 
+            action: rollback
           annotations:
             action: rollback
             summary: Canceling GREEN deployment.
@@ -58,13 +61,18 @@ spec:
 
         - alert: StableDeployment
           for: 20s
-          expr: sum(ALERTS{app='demo', alertstate='firing'}) < 1
+          expr: (avg(container_cpu_usage_seconds_total{pod=~"green-demo.*"}) < 0.07 ) and (avg(container_memory_working_set_bytes{pod=~"green-demo.*"})/(2^20) < 10)
+          # expr: (avg(container_cpu_usage_seconds_total{pod=~"green-demo.*"}) < 0.07 ) and (avg(container_memory_working_set_bytes{pod=~"green-demo.*"})/(2^20) < 10) and (sum(rate(haproxy_backend_http_responses_total{proxy=~'.*green-demo-svc.*', code!='2xx'}[1m])) < 1) 
           labels:
             severity: critical
             namespace: duyaccel-dev
+            action: rollout
           annotations:
             action: rollout
             summary: Routing traffic to GREEN deployment.
             message: |-
               The system was stable for a long time. This is what we desired.              
               Routing traffic event will be trigger to rollout new version.
+
+
+---

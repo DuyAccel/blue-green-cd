@@ -1,0 +1,27 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata:
+  name: rollout-template
+  namespace: duyaccel-dev
+spec:
+  params:
+    - name: repo-url
+    - name: command
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        generateName: rollout-green-pipeline-
+        namespace: duyaccel-dev
+
+      spec:
+        pipelineSpec:
+          tasks:
+            - name: pull-config-repo
+              taskRef:
+                name: pull-repo
+            - name: rollout
+              taskRef:
+                name: exec-kubectl
+      serviceAccountName: pipeline-runner
+--- 

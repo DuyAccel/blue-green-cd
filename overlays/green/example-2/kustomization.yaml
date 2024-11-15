@@ -12,6 +12,8 @@ resources:
   - ../../../base
 
 namePrefix: green-
+commonLabels:
+  ver: green
 
 images:
   - name: nginxinc/nginx-unprivileged

@@ -1,0 +1,29 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: EventListener
+metadata:
+  name: alert-listener
+  namespace: duyaccel-dev
+spec:
+  serviceAccountName: event-listener
+  triggers:
+    - name: rollout
+      interceptors: 
+        - ref:
+            name: cel
+          params:
+            - name: filter
+              value: "body.commonLabels.action == 'rollout'"
+
+      bindings: 
+        - name: repoURL
+          value: 'https://github.com/DuyAccel/blue-green-cd.git'
+        - name: command
+          value: |
+            kubectl apply -f overlays/green/success/ingress.yaml
+       
+      template:
+        ref: rollout-template
+
+    #    - name: rollback
+    #      interceptors: dont-know
+--- 

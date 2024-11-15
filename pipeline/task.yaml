@@ -1,9 +1,0 @@
-apiVersion: tekton.dev/v1beta1
-kind: Task
-metadata:
-  name: pullRepo
-spec:
-  steps:
-    - name: pull repository
-      image: alpine
-
