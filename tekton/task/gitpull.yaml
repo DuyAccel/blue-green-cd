@@ -1,0 +1,22 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: gitpull
+  namespace: duyaccel-dev
+spec:
+  params:
+    - name: repo-url
+      type: string
+      description: git repo url to pull from
+    - name: workdir
+      type: string
+      description: name of working directory
+
+  steps:
+    - name: pull-repository
+      image: alpine:3.20.3
+      script: |
+        #!/bin/sh 
+        apk add --no-cache git 
+        git clone $(params.repo-url) $(params.workdir)
+---

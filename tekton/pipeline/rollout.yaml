@@ -1,0 +1,37 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: rollout-pipeline
+  namespace: duyaccel-dev 
+spec:
+  workspaces:
+    - name: base
+  params:
+    - name: repo-url
+    - name: workdir
+    - name: command
+  tasks:
+    - name: pull-config 
+      taskRef:
+        name: pull-repo 
+      params:
+        - name: repo-url
+          value: "$(params.repo-url)"
+        - name: workdir
+          value: "$(params.workdir)"
+      workspaces:
+        - name: base
+
+    - name: apply-config
+      taskRef:
+        name: kubectl
+      runAfter:
+        - pull-config
+      params:
+        - name: workdir
+          value: "$(params.workdir)"
+        - name: command
+          value: "$(params.command)"
+      workspaces:
+        - name: base
+---

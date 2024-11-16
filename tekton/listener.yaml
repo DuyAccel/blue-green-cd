@@ -15,11 +15,10 @@ spec:
               value: "body.commonLabels.action == 'rollout'"
 
       bindings: 
-        - name: repoURL
-          value: 'https://github.com/DuyAccel/blue-green-cd.git'
+        - name: repo-url
+          value: "https://github.com/DuyAccel/blue-green-cd.git"
         - name: command
-          value: |
-            kubectl apply -f overlays/green/success/ingress.yaml
+          value: "./rollout.sh"
        
       template:
         ref: rollout-template

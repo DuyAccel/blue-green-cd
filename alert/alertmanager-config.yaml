@@ -6,13 +6,13 @@ metadata:
 
 spec:
   route:
-    receiver: 'webhook'
+    receiver: 'cluster-listener'
     groupBy: [namespace, app]
     groupInterval: 5m
     repeatInterval: 10m
 
   receivers:
-    - name: webhook
+    - name: cluster-listener
       webhookConfigs:
         - url: https://webhook.site/ff68ee9f-c5c4-4fa6-8436-7f7257c68390
           sendResolved: false

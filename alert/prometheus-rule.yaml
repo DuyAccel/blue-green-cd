@@ -19,7 +19,6 @@ spec:
             app: demo
             action: rollback
           annotations:
-            action: rollback
             summary: Canceling GREEN deployment.
             message: |-
               Containers is using too much CPU resource. 
@@ -36,7 +35,6 @@ spec:
             app: demo
             action: rollback
           annotations:
-            action: rollback
             summary: Canceling GREEN deployment.
             message: |-
               Containers is using too much Memory resource. 
@@ -52,7 +50,6 @@ spec:
             app: demo 
             action: rollback
           annotations:
-            action: rollback
             summary: Canceling GREEN deployment.
             message: |-
               Spotted too many failure respone in a short term
@@ -68,7 +65,6 @@ spec:
             namespace: duyaccel-dev
             action: rollout
           annotations:
-            action: rollout
             summary: Routing traffic to GREEN deployment.
             message: |-
               The system was stable for a long time. This is what we desired.              
