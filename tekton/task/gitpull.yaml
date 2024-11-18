@@ -12,11 +12,14 @@ spec:
       type: string
       description: name of working directory
 
+  workspaces:
+    - name: default
+
   steps:
     - name: pull-repository
       image: alpine:3.20.3
       script: |
         #!/bin/sh 
         apk add --no-cache git 
-        git clone $(params.repo-url) $(params.workdir)
+        git clone $(params.repo-url) /workspace/$(params.workdir)
 ---

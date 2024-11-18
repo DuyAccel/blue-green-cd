@@ -17,6 +17,8 @@ spec:
       bindings: 
         - name: repo-url
           value: "https://github.com/DuyAccel/blue-green-cd.git"
+        - name: workdir
+          value: "workdir"
         - name: command
           value: "./rollout.sh"
        
