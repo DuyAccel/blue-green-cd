@@ -5,7 +5,7 @@ metadata:
   namespace: duyaccel-dev 
   labels:
     app: demo
-    release: prometheus
+    release: base
 spec:
   endpoints:
     - path: /metrics

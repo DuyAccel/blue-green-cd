@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  generateName: pv-500Mi-
+  generateName: pv-500mi-
 spec:
   capacity:
     storage: 500Mi

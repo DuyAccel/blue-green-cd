@@ -15,6 +15,7 @@ spec:
     
   workspaces:
     - name: default
+      mountPath: /workspace
 
   steps:
     - name: exec-cmd

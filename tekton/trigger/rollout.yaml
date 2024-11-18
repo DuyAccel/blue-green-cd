@@ -18,31 +18,21 @@ spec:
         params:
           - name: repo-url
             value: "$(tt.params.repo-url)"  
+          - name: workdir 
+            value: "$(tt.params.workdir)"
           - name: command
             value: "$(tt.params.command)"
-        pipelineSpec:
-          tasks:
-            - name: pull-config-repo
-              params:
-                - name: repo-url
-                  value: "$(params.repo-url)"
-              taskRef:
-                name: pull-repo
-            - name: rollout
-              params:
-                - name: command
-                  value: "$(params.command)"
-              taskRef:
-                name: exec-kubectl
-      workspaces:
-        - name: default
-          volumeClaimTemplate:
-            spec:
-              accessModes:
-                - ReadWriteMany
-              resources:
-                requests:
-                  storage: 300Mi
+        pipelineRef:
+          - name: rollout-pipeline
+        workspaces:
+          - name: default
+            volumeClaimTemplate:
+              spec:
+                accessModes:
+                  - ReadWriteMany
+                resources:
+                  requests:
+                    storage: 300Mi
 
       #serviceAccountName: pipeline-runner
 --- 

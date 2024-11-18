@@ -5,7 +5,7 @@ metadata:
   namespace: duyaccel-dev 
 spec:
   workspaces:
-    - name: base
+    - name: default
 
       #      workspaces:
       #        - name: default
@@ -23,14 +23,14 @@ spec:
   tasks:
     - name: pull-config 
       taskRef:
-        name: pull-repo 
+        name: gitpull
       params:
         - name: repo-url
           value: "$(params.repo-url)"
         - name: workdir
           value: "$(params.workdir)"
       workspaces:
-        - name: base
+        - name: default
 
     - name: apply-config
       taskRef:
@@ -42,4 +42,6 @@ spec:
           value: "$(params.workdir)"
         - name: command
           value: "$(params.command)"
+      workspaces:
+        - name: default
 ---

@@ -5,7 +5,7 @@ metadata:
   namespace: duyaccel-dev
   labels:
     app: demo
-    release: prometheus
+    release: base
 spec:
   groups:
     - name: Blue/Green monitoring
