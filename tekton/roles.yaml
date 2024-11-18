@@ -16,8 +16,8 @@ metadata:
   name: pipeline-runner-role
   namespace: duyaccel-dev
 rules:
-  - apiGroups: [""]
-    resources: ["deployments", "configmaps", "services", "ingress"]
+  - apiGroups: ["", "apps", "networking.k8s.io","alertmanagerconfigs.monitoring.coreos.com"]
+    resources: ["deployments", "configmaps", "services", "ingress", "alertmanagerconfigs", "servicemonitors", "prometheusrules"]
     verbs: ["create", "delete", "apply", "rollout", "rollback"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1

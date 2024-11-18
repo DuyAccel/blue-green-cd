@@ -1,3 +1,0 @@
-work-dir: /home/WORK/openshift/blue-green
-route-dir: /home/WORK/openshift/blue-green/overlays/success
-blue-dir: /home/WORK/openshift/blue-green/overlays/blue
