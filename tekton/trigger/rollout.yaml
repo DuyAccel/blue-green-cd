@@ -23,7 +23,7 @@ spec:
           - name: command
             value: "$(tt.params.command)"
         pipelineRef:
-          - name: rollout-pipeline
+          name: rollout-pipeline
         workspaces:
           - name: default
             volumeClaimTemplate:
