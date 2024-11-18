@@ -6,16 +6,6 @@ metadata:
 spec:
   workspaces:
     - name: default
-
-      #      workspaces:
-      #        - name: default
-      #          volumeClaimTemplate:
-      #            spec:
-      #              accessModes:
-      #                - ReadWriteMany
-      #              resources:
-      #                requests:
-      #                  storage: 300Mi
   params:
     - name: repo-url
     - name: workdir
