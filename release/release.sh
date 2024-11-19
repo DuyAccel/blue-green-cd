@@ -2,4 +2,4 @@
 
 #-----APPLY CONFIG------#
 
-kubectl apply -k release
+kubectl apply -k overlays/blue
