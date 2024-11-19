@@ -13,7 +13,6 @@ resources:
   - alert/alertmanager-config.yaml
   - alert/haproxy.yaml
   - alert/prometheus-rule.yaml
-  - ingress.yaml
 
 namePrefix: green-
 
