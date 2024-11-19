@@ -12,7 +12,7 @@ spec:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
       metadata:
-        rollout: rollout-green-pipeline
+        name: rollout-green-pipeline
         namespace: duyaccel-dev
       spec:
         params:
