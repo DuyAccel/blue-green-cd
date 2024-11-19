@@ -5,6 +5,9 @@ metadata:
 spec:
   replicas: 3
   template:
+    metadata:
+      labels:
+        ver: blue
     spec:
       containers:
       - name: demo-web

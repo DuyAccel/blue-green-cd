@@ -1,0 +1,31 @@
+[pull-config : pull-repository] fetch https://dl-cdn.alpinelinux.org/alpine/v3.20/main/x86_64/APKINDEX.tar.gz
+[pull-config : pull-repository] fetch https://dl-cdn.alpinelinux.org/alpine/v3.20/community/x86_64/APKINDEX.tar.gz
+[pull-config : pull-repository] (1/13) Installing ca-certificates (20240705-r0)
+[pull-config : pull-repository] (2/13) Installing brotli-libs (1.1.0-r2)
+[pull-config : pull-repository] (3/13) Installing c-ares (1.33.1-r0)
+[pull-config : pull-repository] (4/13) Installing libunistring (1.2-r0)
+[pull-config : pull-repository] (5/13) Installing libidn2 (2.3.7-r0)
+[pull-config : pull-repository] (6/13) Installing nghttp2-libs (1.62.1-r0)
+[pull-config : pull-repository] (7/13) Installing libpsl (0.21.5-r1)
+[pull-config : pull-repository] (8/13) Installing zstd-libs (1.5.6-r0)
+[pull-config : pull-repository] (9/13) Installing libcurl (8.11.0-r2)
+[pull-config : pull-repository] (10/13) Installing libexpat (2.6.4-r0)
+[pull-config : pull-repository] (11/13) Installing pcre2 (10.43-r0)
+[pull-config : pull-repository] (12/13) Installing git (2.45.2-r0)
+[pull-config : pull-repository] (13/13) Installing git-init-template (2.45.2-r0)
+[pull-config : pull-repository] Executing busybox-1.36.1-r29.trigger
+[pull-config : pull-repository] Executing ca-certificates-20240705-r0.trigger
+[pull-config : pull-repository] OK: 20 MiB in 27 packages
+[pull-config : pull-repository] Cloning into '/workspace/workdir'...
+
+[apply-config : exec-cmd] Error from server (Forbidden): error when deleting "STDIN": alertmanagerconfigs.monitoring.coreos.com "demo-alert" is forbidden: User "system:serviceaccount:duyaccel-dev:pipeline-runner" cannot delete resource "alertmanagerconfigs" in API group "monitoring.coreos.com" in the namespace "duyaccel-dev"
+[apply-config : exec-cmd] Error from server (Forbidden): error when deleting "STDIN": servicemonitors.monitoring.coreos.com "haproxy-target" is forbidden: User "system:serviceaccount:duyaccel-dev:pipeline-runner" cannot delete resource "servicemonitors" in API group "monitoring.coreos.com" in the namespace "duyaccel-dev"
+[apply-config : exec-cmd] Error from server (Forbidden): error when deleting "STDIN": prometheusrules.monitoring.coreos.com "demo-rules" is forbidden: User "system:serviceaccount:duyaccel-dev:pipeline-runner" cannot delete resource "prometheusrules" in API group "monitoring.coreos.com" in the namespace "duyaccel-dev"
+[apply-config : exec-cmd] Error from server (Forbidden): error when retrieving current configuration of:
+[apply-config : exec-cmd] Resource: "networking.k8s.io/v1, Resource=ingresses", GroupVersionKind: "networking.k8s.io/v1, Kind=Ingress"
+[apply-config : exec-cmd] Name: "demo-ingress", Namespace: "duyaccel-dev"
+[apply-config : exec-cmd] from server for: "STDIN": ingresses.networking.k8s.io "demo-ingress" is forbidden: User "system:serviceaccount:duyaccel-dev:pipeline-runner" cannot get resource "ingresses" in API group "networking.k8s.io" in the namespace "duyaccel-dev"
+[apply-config : exec-cmd] configmap "index-t2k85m56b6" deleted
+[apply-config : exec-cmd] service "demo-svc" deleted
+[apply-config : exec-cmd] Error from server (Forbidden): error when deleting "overlays/blue": deployments.apps "demo-deploy" is forbidden: User "system:serviceaccount:duyaccel-dev:pipeline-runner" cannot delete resource "deployments" in API group "apps" in the namespace "duyaccel-dev"
+
