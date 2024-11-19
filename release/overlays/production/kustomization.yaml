@@ -16,8 +16,6 @@ resources:
   - ingress.yaml
 
 namePrefix: green-
-commonLabels:
-  ver: green
 
 images:
   - name: nginxinc/nginx-unprivileged
