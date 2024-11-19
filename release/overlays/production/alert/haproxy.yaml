@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: haproxy-target
+  namespace: duyaccel-dev 
+  labels:
+    app: demo
+    release: base
+spec:
+  endpoints:
+    - path: /metrics
+      port: stat
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: haproxy-kubernetes-ingress
+  namespaceSelector:
+    matchNames:
+      - haproxy-controller
+---
