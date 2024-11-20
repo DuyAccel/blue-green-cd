@@ -43,7 +43,7 @@ spec:
 
         - alert: PodLowAvailability
           for: 1m
-          expr: avg(kube_pod_status_phase{pod=~'{{NEW_DEPLOY}}.*', phase!='Running'}) > 0.5
+          expr: avg(kube_pod_container_status_ready{pod=~'{{NEW_DEPLOY}}.*'}) < 0.5
           labels:
             severity: critical
             namespace: duyaccel-dev
