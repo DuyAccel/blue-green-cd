@@ -12,7 +12,7 @@ spec:
       rules:
         - alert: ContainersUsingTooMuchCPU
           for: 1m
-          expr: avg(container_cpu_usage_seconds_total{pod=~"{{NEW_DEPLOY}.*"}) > 0.07
+          expr: avg(container_cpu_usage_seconds_total{pod=~"{{NEW_DEPLOY}}.*"}) > 0.07
           labels:
             severity: critical
             namespace: duyaccel-dev
