@@ -1,8 +1,7 @@
 #!/bin/sh
 
-NEW=$1
-OLD=$2
+OLD=$1
 
 # delete blue
-cd ../../${OLD}/release
+cd ../${OLD}/release
 kubectl delete -k overlays/production
