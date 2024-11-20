@@ -2,4 +2,4 @@
 
 #-----APPLY CONFIG------#
 
-kubectl apply -k overlays/blue
+kubectl apply -k overlays/production
