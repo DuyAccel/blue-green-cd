@@ -13,6 +13,3 @@ resources:
 
 namePrefix: green-
 
-patches:
-  - path: deployment.yaml
-

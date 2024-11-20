@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION='new/cpu-high'
+VERSION='new/stable'
 NEW_DEPLOY='green-demo'
 OLD_DEPLOY='demo'
 
