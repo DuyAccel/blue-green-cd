@@ -1,6 +1,6 @@
 ########################################
 #                                      #
-#         OVER-USE MEMORY/CPU          #
+#         CRASH LOOP BACK OFF          #
 #                                      #
 ########################################
 
@@ -10,10 +10,6 @@ kind: Kustomization
 namespace: duyaccel-dev
 resources:
   - ../../../base
-  - alert/alertmanager-config.yaml
-  - alert/haproxy.yaml
-  - alert/prometheus-rule.yaml
-  - ingress.yaml
 
 namePrefix: green-
 
