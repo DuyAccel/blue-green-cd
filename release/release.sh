@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION='new/code-404'
+VERSION='new/crash-backoff'
 NEW_DEPLOY='green-demo'
 OLD_DEPLOY='demo'
 
