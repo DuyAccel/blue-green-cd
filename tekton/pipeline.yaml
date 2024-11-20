@@ -33,10 +33,6 @@ spec:
       params:
         - name: command
           value: "$(params.command)"
-        - name: new-version 
-          value: "$(params.new-version)"
-        - name: old-version
-          value: "$(params.old-version)"
       workspaces:
         - name: default
 ---

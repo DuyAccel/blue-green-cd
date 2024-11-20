@@ -28,12 +28,12 @@ spec:
         git clone $(params.repo-url) \
           --branch $(params.old-version) \
           --single-branch \
-          /workspace/$(params.old-version)
+          /workspace/old-ver
 
         git clone $(params.repo-url) \
           --branch $(params.new-version) \
           --single-branch \
-          /workspace/$(params.new-version)
+          /workspace/new-ver
         
         ls -l 
         
