@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
-  name: rollout-pipeline
+  name: blue-green-pipeline
   namespace: duyaccel-dev 
 spec:
   workspaces:

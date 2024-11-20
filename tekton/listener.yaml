@@ -25,8 +25,7 @@ spec:
         - name: new-version
           value: $(body.commonLabels.version)
       template:
-        ref: rollout-template
-
+        ref: blue-green-template
 
     - name: rollback
       interceptors: 
@@ -45,5 +44,5 @@ spec:
         - name: new-version
           value: "$(body.commonLabels.version)"
       template:
-        ref: rollback-template
+        ref: blue-green-template
 --- 
