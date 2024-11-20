@@ -74,7 +74,7 @@ spec:
 
         - alert: StableDeployment
           for:  2m 
-          expr: count(kube_pod_info{pod=~'{{OLD_DEPLOY}}.*'}) * sum(sum_over_time(ALERTS{action='rollback', alertstate='firing', version='{{VERSION}}'}[2m]) or vector(0) < 1)
+          expr: count(kube_pod_info{pod=~'{{OLD_DEPLOY}}.*'}) * sum(sum_over_time(ALERTS{action='rollback', alertstate='firing', version='{{VERSION}}'}[2m]) or vector(0)) < 1
           labels:
             severity: warning
             namespace: duyaccel-dev
