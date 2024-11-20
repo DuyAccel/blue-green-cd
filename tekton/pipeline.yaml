@@ -8,7 +8,6 @@ spec:
     - name: default
   params:
     - name: repo-url
-    - name: workdir
     - name: command
     - name: old-version
     - name: new-version

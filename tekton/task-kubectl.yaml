@@ -25,6 +25,6 @@ spec:
       image: duyaccel/admin:k8s.14-11-2024.9h50p
       script: |
         #!/bin/sh 
-        cd /workspace/$(params.workdir)
+        cd /workspace
         $(params.command) $(params.new-version) $(params.old-version)
 ---

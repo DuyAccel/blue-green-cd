@@ -17,15 +17,13 @@ spec:
       bindings: 
         - name: repo-url
           value: "https://github.com/DuyAccel/blue-green-cd.git"
-        - name: workdir
-          value: "workdir"
         - name: command
           value: "./rollout.sh"
         - name: old-version
           value: "stable"
 
         - name: new-version
-        - value: $(body.commonLabels.version)
+          value: $(body.commonLabels.version)
       template:
         ref: rollout-template
 
@@ -36,7 +34,7 @@ spec:
             name: cel
           params:
             - name: filter
-              value: "body.commonLabels.action == 'rollout'"
+              value: "body.commonLabels.action == 'rollback'"
       bindings: 
         - name: repo-url
           value: "https://github.com/DuyAccel/blue-green-cd.git"
@@ -45,7 +43,7 @@ spec:
         - name: old-version
           value: "stable"
         - name: new-version
-        - value: "$(body.commonLabels.version)"
+          value: "$(body.commonLabels.version)"
       template:
         ref: rollback-template
 --- 
