@@ -11,12 +11,12 @@ spec:
     - name: Blue/Green monitoring
       rules:
         - alert: ContainersUsingTooMuchCPU
-          for: 9s
-          expr: avg(container_cpu_usage_seconds_total{pod=~"green-demo.*"}) > 0.07
+          for: 1m
+          expr: avg(container_cpu_usage_seconds_total{pod=~"{{NEW_DEPLOY}.*"}) > 0.07
           labels:
             severity: critical
             namespace: duyaccel-dev
-            version: '{{VERSION}}'
+            version: {{VERSION}}
             action: rollback
           annotations:
             summary: Canceling GREEN deployment.
@@ -26,12 +26,12 @@ spec:
               Rollback event will be trigger to cancel the GREEN deployment.
 
         - alert: ContainersUsingTooMuchMemory
-          for: 9s
-          expr: avg(container_memory_working_set_bytes{pod=~"green-demo.*"})/(2^20) > 10
+          for: 1m
+          expr: avg(container_memory_working_set_bytes{pod=~"{{NEW_DEPLOY}}.*"})/(2^20) > 10
           labels:
             severity: critical
             namespace: duyaccel-dev
-            version: '{{VERSION}}'
+            version: {{VERSION}}
             action: rollback
           annotations:
             summary: Canceling GREEN deployment.
@@ -42,12 +42,12 @@ spec:
 
 
         - alert: PodLowAvailability
-          for: 9s
-          expr: avg(kube_pod_status_phase{pod=~'green-demo.*', phase!='Running'}) < 0.5
+          for: 1m
+          expr: avg(kube_pod_status_phase{pod=~'{{NEW_DEPLOY}}.*', phase!='Running'}) > 0.5
           labels:
             severity: critical
             namespace: duyaccel-dev
-            version: '{{VERSION}}'
+            version: {{VERSION}}
             action: rollback
           annotations:
             summary: Canceling GREEN deployment.
@@ -57,12 +57,13 @@ spec:
               Rollback event will be trigger to cancel the GREEN deployment.
 
         - alert: HttpResponseFailed
-          for: 9s
-          expr: sum(rate(haproxy_backend_http_responses_total{proxy=~'traffic.*', code!='2xx'}[1m])) > 2
+          for: 1m
+          #          expr: sum(rate(haproxy_backend_http_responses_total{code!='200', proxy=~'duyaccel-dev_demo-svc_main'}[1m])) > 0.2
+          expr: sum(rate(haproxy_backend_http_responses_total{code!='200', proxy=~'.*{{OLD_DEPLOY}}.*'}[1m])) > 0.2
           labels:
             severity: critical
             namespace: duyaccel-dev 
-            version: '{{VERSION}}'
+            version: {{VERSION}}
             action: rollback
           annotations:
             summary: Canceling GREEN deployment.
@@ -72,17 +73,17 @@ spec:
               Rollback event will be trigger to cancel the GREEN deployment.
 
         - alert: StableDeployment
-          for: 30s
-          expr: (count(ALERTS{pod=~'green-demo.*'}) or vector(0)) > 1
+          for:  2m 
+          expr: count(kube_pod_info{pod=~'{{OLD_DEPLOY}}.*'}) * sum(sum_over_time(ALERTS{action='rollback', alertstate='firing', version='{{VERSION}}'}[2m]) or vector(0) < 1)
           labels:
             severity: warning
             namespace: duyaccel-dev
-            version: '{{VERSION}}'
+            version: {{VERSION}}
             action: rollout
           annotations:
             summary: Routing traffic to GREEN deployment.
             message: |-
-              The system was stable for a long time. This is what we desired.              
+              The system was stable for a long time. This is what we desired.
               Routing traffic event will be trigger to rollout new version.
 
 ---
