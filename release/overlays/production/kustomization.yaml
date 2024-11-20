@@ -10,9 +10,6 @@ kind: Kustomization
 namespace: duyaccel-dev
 resources:
   - ../../base
-  - alert/alertmanager-config.yaml
-  - alert/haproxy.yaml
-  - alert/prometheus-rule.yaml
 
 namePrefix: green-
 
