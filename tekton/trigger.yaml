@@ -1,27 +1,30 @@
 apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
-  name: rollout-template
+  name: blue-green-template
   namespace: duyaccel-dev
 spec:
   params:
     - name: repo-url
-    - name: workdir
     - name: command
+    - name: old-version
+    - name: new-version
   resourcetemplates:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
       metadata:
-        name: rollout-green-pipeline
+        generate-name: rollout-green-pipeline
         namespace: duyaccel-dev
       spec:
         params:
           - name: repo-url
             value: "$(tt.params.repo-url)"  
-          - name: workdir 
-            value: "$(tt.params.workdir)"
           - name: command
             value: "$(tt.params.command)"
+          - name: old-version
+            value: "$(tt.params.old-version)"
+          - name: new-version
+            value: "$(tt.params.new-version)"
         pipelineRef:
           name: rollout-pipeline
         workspaces:

@@ -10,6 +10,8 @@ spec:
     - name: repo-url
     - name: workdir
     - name: command
+    - name: old-version
+    - name: new-version
   tasks:
     - name: pull-config 
       taskRef:
@@ -17,8 +19,10 @@ spec:
       params:
         - name: repo-url
           value: "$(params.repo-url)"
-        - name: workdir
-          value: "$(params.workdir)"
+        - name: new-version 
+          value: "$(params.new-version)"
+        - name: old-version
+          value: "$(params.old-version)"
       workspaces:
         - name: default
 
@@ -28,10 +32,12 @@ spec:
       runAfter:
         - pull-config
       params:
-        - name: workdir
-          value: "$(params.workdir)"
         - name: command
           value: "$(params.command)"
+        - name: new-version 
+          value: "$(params.new-version)"
+        - name: old-version
+          value: "$(params.old-version)"
       workspaces:
         - name: default
 ---

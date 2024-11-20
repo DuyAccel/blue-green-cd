@@ -5,14 +5,17 @@ metadata:
   namespace: duyaccel-dev
 spec:
   params:
-    - name: workdir
-      type: string 
-      description: name of working directory
-
     - name: command
       type: string
       description: command to execute
-    
+    - name: old-version
+      type: string
+      default: 'stable'
+      description: name of the old version
+    - name: new-version
+      type: string
+      default: ''
+      description: name of the new version
   workspaces:
     - name: default
       mountPath: /workspace
@@ -23,5 +26,5 @@ spec:
       script: |
         #!/bin/sh 
         cd /workspace/$(params.workdir)
-        $(params.command)
+        $(params.command) $(params.new-version) $(params.old-version)
 ---

@@ -1,10 +1,8 @@
 #!/bin/sh
 
-# delete alerts
-cat alert/* | kubectl delete -f -
-
-# route traffic
-cat overlays/green/rollout/* | kubectl apply -f -
+NEW=$1
+OLD=$2
 
 # delete blue
-kubectl delete -k overlays/blue
+cd ../../${OLD}/release
+kubectl delete -k overlays/production

@@ -21,10 +21,31 @@ spec:
           value: "workdir"
         - name: command
           value: "./rollout.sh"
-       
+        - name: old-version
+          value: "stable"
+
+        - name: new-version
+        - value: $(body.commonLabels.version)
       template:
         ref: rollout-template
 
-    #    - name: rollback
-    #      interceptors: dont-know
+
+    - name: rollback
+      interceptors: 
+        - ref:
+            name: cel
+          params:
+            - name: filter
+              value: "body.commonLabels.action == 'rollout'"
+      bindings: 
+        - name: repo-url
+          value: "https://github.com/DuyAccel/blue-green-cd.git"
+        - name: command
+          value: "./rollout.sh"
+        - name: old-version
+          value: "stable"
+        - name: new-version
+        - value: "$(body.commonLabels.version)"
+      template:
+        ref: rollback-template
 --- 
