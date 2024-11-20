@@ -22,5 +22,5 @@ spec:
 
         echo "clean up workspace"
         cd /workspace
-        rm -rf new-ver oldver
+        rm -rf new-ver old-ver
 ---
