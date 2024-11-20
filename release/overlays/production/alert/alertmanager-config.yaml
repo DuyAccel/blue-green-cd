@@ -14,8 +14,10 @@ spec:
   receivers:
     - name: cluster-listener
       webhookConfigs:
-        - url: https://webhook.site/ff68ee9f-c5c4-4fa6-8436-7f7257c68390
-          sendResolved: false
         - url: http://el-alert-listener.duyaccel-dev.svc.cluster.local:8080
           sendResolved: false
+      
+      discordConfigs:
+        - apiURL: 'https://discord.com/api/webhooks/1308467362005258251/AbihwXZ3fafa19Zwd0x1E_naqd9CvH2c_Nb6uq3Hrp4ZIvUgBn2aRRGd_Zkow9SW-Hhm'
+
 ---
