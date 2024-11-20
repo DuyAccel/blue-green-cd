@@ -19,4 +19,8 @@ spec:
         #!/bin/sh 
         cd /workspace/new-ver 
         $(params.command) old-ver
+
+        echo "clean up workspace"
+        cd /worlspace
+        rm -rf new-ver oldver
 ---
