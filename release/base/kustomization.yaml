@@ -4,4 +4,3 @@ namespace: duyaccel-dev
 resources:
   - deployment.yaml
   - service.yaml
-  - ingress
