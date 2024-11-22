@@ -1,0 +1,21 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    haproxy.router.openshift.io/balance: roundrobin
+    haproxy.router.openshift.io/disable_cookies: "true"
+  name: demo-route
+  namespace: test
+spec:
+  host: kubernetes.lab
+  port:
+    targetPort: main
+  to:
+    kind: Service
+    name: blue
+    weight: 90
+  
+  alternateBackends:
+    - kind: Service
+      name: green
+      weight: 10

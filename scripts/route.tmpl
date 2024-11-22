@@ -1,0 +1,17 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    haproxy.router.openshift.io/balance: roundrobin
+    haproxy.router.openshift.io/disable_cookies: "true"
+  name: {{ .Route }}
+  namespace: {{ .Namespace }}
+spec:
+  host: {{ .Host }}
+  port:
+    targetPort: {{ .Port }}
+  to:
+    kind: Service
+    name: {{ .Service }}
+    weight: {{ .Weight }}
+  {{ .Alter-backend }}
