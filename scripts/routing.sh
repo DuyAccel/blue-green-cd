@@ -62,9 +62,9 @@ if [[ $weight_alter -gt 0 ]]; then
   alternateBackends:
     - kind: Service
       name: ${svc_alter}
-      weight: ${weight_alter}" > alter-backend.yaml
+      weight: ${weight_alter}" > AlterBackend.yaml
 else 
-  echo "" > alter-backend.yaml
+  echo "" > AlterBackend.yaml
 fi
 
 echo "$alter_backend"
@@ -75,10 +75,12 @@ sed -e "s/{{ .Namespace }}/$namespace/" \
     -e "s/{{ .Port }}/$port/" \
     -e "s/{{ .Service }}/$svc_main/" \
     -e "s/{{ .Weight }}/$weight_main/" \
-    -e "/{{ .Alter-backend }}/{
-        s/{{ .Alter-backend }}//
-        r alter-backend.yaml
+    -e "/{{ .AlterBackend }}/{
+        s/{{ .AlterBackend }}//
+        r AlterBackend.yaml
         }" route.tmpl > route.yaml
 
+echo "Route config:"
 cat route.yaml
-rm alter-backend.yaml
+
+kubectl apply -f route.yaml

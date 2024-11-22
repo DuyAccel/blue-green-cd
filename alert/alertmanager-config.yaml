@@ -6,10 +6,14 @@ metadata:
 
 spec:
   route:
-    receiver: 'cluster-listener'
     groupBy: [namespace, app]
     groupInterval: 5m
     repeatInterval: 10m
+    routes:
+      - matchers:
+          - namespace: duyaccel-dev
+          - app: demo
+        receiver: 'cluster-listener'
 
   receivers:
     - name: cluster-listener

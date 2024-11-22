@@ -18,7 +18,8 @@ spec:
       script: |
         #!/bin/sh 
         cd /workspace/new-ver 
-        $(params.command) old-ver
+        export $(cat .env | xargs)
+        $(params.command) 
 
         echo "clean up workspace"
         cd /workspace
